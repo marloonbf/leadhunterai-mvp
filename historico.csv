@@ -1,0 +1,70 @@
+data_hora,amostra_vaga,resultado_bruto
+2025-09-01 16:23:07,"Estamos contratando Analista de Vendas B2B para atuar no setor de tecnologia. 
+A empresa está em expansão e recentemente abriu novas filiais em São Paulo e Bel...","🔎 Sinais de crescimento: sim — menções a contratação/expansão
+🔥 Classificação: QUENTE – stack e momento aderentes
+
+📨 Mensagem sugerida:
+Olá, tudo bem? Vi a publicação de Analista De Vendas B e percebi pontos que podemos acelerar.
+Trabalhamos com prospecção inteligente: identificamos empresas-alvo, qualificamos por sinais de compra e geramos abordagens personalizadas. Isso reduz o tempo de pré-vendas e aumenta conversão.
+Podemos conectar com o CRM de vocês (ex.: HubSpot/RD Station) e entregar leads já priorizados.
+Se fizer sentido, te mostro um piloto em 20 minutos ainda esta semana."
+2025-09-01 16:59:05,"Estamos contratando Analista de Vendas B2B para atuar no setor de tecnologia. 
+A empresa está em expansão e recentemente abriu novas filiais em São Paulo e Bel...","🔎 Sinais de crescimento: sim — menções a contratação/expansão
+🔥 Classificação: QUENTE – stack e momento aderentes
+
+📨 Mensagem sugerida:
+Olá, tudo bem? Vi a publicação de Analista De Vendas B e percebi pontos que podemos acelerar.
+Trabalhamos com prospecção inteligente: identificamos empresas-alvo, qualificamos por sinais de compra e geramos abordagens personalizadas. Isso reduz o tempo de pré-vendas e aumenta conversão.
+Podemos conectar com o CRM de vocês (ex.: HubSpot/RD Station) e entregar leads já priorizados.
+Se fizer sentido, te mostro um piloto em 20 minutos ainda esta semana."
+2025-09-01 17:10:14,"Estamos contratando Analista de Vendas B2B para atuar no setor de tecnologia. 
+A empresa está em expansão e recentemente abriu novas filiais em São Paulo e Bel...","🔎 Sinais de crescimento: sim — menções a contratação/expansão
+🔥 Classificação: QUENTE – stack e momento aderentes
+
+📨 Mensagem sugerida:
+Olá, tudo bem? Vi a publicação de Analista De Vendas B e percebi pontos que podemos acelerar.
+Trabalhamos com prospecção inteligente: identificamos empresas-alvo, qualificamos por sinais de compra e geramos abordagens personalizadas. Isso reduz o tempo de pré-vendas e aumenta conversão.
+Podemos conectar com o CRM de vocês (ex.: HubSpot/RD Station) e entregar leads já priorizados.
+Se fizer sentido, te mostro um piloto em 20 minutos ainda esta semana."
+2025-09-01 17:12:55,"Estamos contratando Analista de Vendas B2B para atuar no setor de tecnologia. 
+A empresa está em expansão e recentemente abriu novas filiais em São Paulo e Bel...","🔎 Sinais de crescimento: sim — menções a contratação/expansão
+🔥 Classificação: QUENTE – stack e momento aderentes
+
+📨 Mensagem sugerida:
+Olá, tudo bem? Vi a publicação de Analista De Vendas B e percebi pontos que podemos acelerar.
+Trabalhamos com prospecção inteligente: identificamos empresas-alvo, qualificamos por sinais de compra e geramos abordagens personalizadas. Isso reduz o tempo de pré-vendas e aumenta conversão.
+Podemos conectar com o CRM de vocês (ex.: HubSpot/RD Station) e entregar leads já priorizados.
+Se fizer sentido, te mostro um piloto em 20 minutos ainda esta semana."
+2025-09-01 17:13:42,"Estamos contratando Analista de Vendas B2B para atuar no setor de tecnologia. 
+A empresa está em expansão e recentemente abriu novas filiais em São Paulo e Bel...","🔎 Sinais de crescimento: sim — menções a contratação/expansão
+🔥 Classificação: QUENTE – stack e momento aderentes
+
+📨 Mensagem sugerida:
+Olá, tudo bem? Vi a publicação de Analista De Vendas B e percebi pontos que podemos acelerar.
+Trabalhamos com prospecção inteligente: identificamos empresas-alvo, qualificamos por sinais de compra e geramos abordagens personalizadas. Isso reduz o tempo de pré-vendas e aumenta conversão.
+Podemos conectar com o CRM de vocês (ex.: HubSpot/RD Station) e entregar leads já priorizados.
+Se fizer sentido, te mostro um piloto em 20 minutos ainda esta semana."
+2025-09-01 19:06:57,pt,vagas,software companies hiring developers remote,,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:07:38,pt,vagas,software companies hiring developers remote,,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:08:00,fr,vagas,startups contratando analistas de marketing 2025,,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:17:16,fr,vagas,startups contratando analistas de marketing 2025,,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:17:17,fr,vagas,startups contratando analistas de marketing 2025,,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:18:34,pt,vagas,,Validar se a empresa Tesla está contratando engenheiros.,"{'url': 'Validar se a empresa Tesla está contratando engenheiros.', 'encontrado': 'N/A', 'evidencia': 'ERROR: InvalidURL: Failed to parse: Validar se a empresa Tesla está contratando engenheiros.', 'obs': 'Falha ao acessar'}"
+2025-09-01 19:21:36,pt,vagas,Validar se a empresa Tesla está contratando engenheiros.,https://www.tesla.com/careers;https://boards.greenhouse.io/stripe;https://jobs.lever.co/openai,"{'url': 'https://www.tesla.com/careers', 'encontrado': 'Sim', 'evidencia': 'Careers | Tesla', 'obs': 'Heurística local (demo)'}
+{'url': 'https://boards.greenhouse.io/stripe', 'encontrado': 'N/A', 'evidencia': ""ERROR: ConnectionError: HTTPSConnectionPool(host='stripe.com', port=443): Read timed out."", 'obs': 'Falha ao acessar'}
+{'url': 'https://jobs.lever.co/openai', 'encontrado': 'N/A', 'evidencia': 'ERROR: HTTPError: 404 Client Error: Not Found for url: https://jobs.lever.co/openai', 'obs': 'Falha ao acessar'}"
+2025-09-01 19:29:33,pt,vagas,Validar se a empresa Tesla está contratando engenheiros.,https://www.tesla.com/careers;https://boards.greenhouse.io/stripe;https://jobs.lever.co/openai,"{'url': 'https://www.tesla.com/careers', 'encontrado': 'Sim', 'evidencia': 'Careers | Tesla', 'obs': 'Heurística local (demo)'}
+{'url': 'https://boards.greenhouse.io/stripe', 'encontrado': 'Sim', 'evidencia': 'Stripe Jobs', 'obs': 'Heurística local (demo)'}
+{'url': 'https://jobs.lever.co/openai', 'encontrado': 'N/A', 'evidencia': 'ERROR: HTTPError: 404 Client Error: Not Found for url: https://jobs.lever.co/openai', 'obs': 'Falha ao acessar'}"
+2025-09-01 19:35:18,pt,vagas,"Verificar se empresas de software estão contratando cargos de vendas B2B (Account Executive, SDR) globalmente.",,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:35:30,pt,vagas,"Verificar se empresas de software estão contratando cargos de vendas B2B (Account Executive, SDR) globalmente.",,"Modo demonstração: sem IA e sem URLs para validar.
+Forneça URLs, use CSV, ou ative a busca automática."
+2025-09-01 19:35:56,pt,vagas,"Verificar se empresas de software estão contratando cargos de vendas B2B (Account Executive, SDR) globalmente.",https://www.linkedin.com/company/salesforce/;https://boards.greenhouse.io/cloudflare;https://jobs.lever.co/stripe,"{'url': 'https://www.linkedin.com/company/salesforce/', 'encontrado': 'Sim', 'evidencia': 'Salesforce | LinkedIn', 'obs': 'Heurística local (demo)'}
+{'url': 'https://boards.greenhouse.io/cloudflare', 'encontrado': 'Sim', 'evidencia': 'Open Positions at Cloudflare | Cloudflare', 'obs': 'Heurística local (demo)'}
+{'url': 'https://jobs.lever.co/stripe', 'encontrado': 'N/A', 'evidencia': 'ERROR: HTTPError: 404 Client Error: Not Found for url: https://jobs.lever.co/stripe', 'obs': 'Falha ao acessar'}"

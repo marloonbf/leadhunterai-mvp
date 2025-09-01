@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LeadHunterAI — MVP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root { --brand:#6c5ce7; }
+    .brand-gradient { background: linear-gradient(90deg, #6c5ce7, #00b894); }
+    .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    pre { white-space: pre-wrap; word-break: break-word; }
+    .spinner { display:none; }
+    .btn-brand { background: var(--brand); color:#fff; }
+    .btn-brand:hover { filter: brightness(.95); color:#fff; }
+    .small-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.82rem; }
+    textarea { resize: vertical; }
+  </style>
+</head>
+<body class="bg-light">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark brand-gradient">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="/">🤖 LeadHunterAI</a>
+      <div class="ms-auto d-flex align-items-center gap-2">
+        <!-- Idioma UI/Análise -->
+        <select id="lang-select" class="form-select form-select-sm" style="width:auto;">
+          <option value="pt" selected>🇧🇷 Português</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+        </select>
+        <a href="/download" id="btn-csv" class="btn btn-outline-light btn-sm">⬇️ CSV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="container py-4">
+    <div class="row g-4">
+      <!-- FORM -->
+      <div class="col-12 col-lg-5">
+        <div class="card shadow-soft">
+          <div class="card-body">
+            <h5 class="card-title mb-3" id="title-form">Nova Validação</h5>
+
+            {% if erro %}
+              <div class="alert alert-warning">{{ erro }}</div>
+            {% endif %}
+
+            <form method="POST" id="form-validacao" enctype="multipart/form-data">
+              <!-- idioma enviado ao backend -->
+              <input type="hidden" id="lang-hidden" name="lang" value="pt">
+
+              <div class="mb-3">
+                <label class="form-label" id="label-tipo">Tipo de validação</label>
+                <select class="form-select" name="tipo" id="tipo">
+                  <option value="vagas" selected>📌 <span data-i18n="opt-vagas">Vagas abertas</span></option>
+                  <option value="crescimento">📈 <span data-i18n="opt-crescimento">Empresa em crescimento</span></option>
+                  <option value="produto">🛒 <span data-i18n="opt-produto">Produto/Marca à venda</span></option>
+                  <option value="concorrente">🏢 <span data-i18n="opt-concorrente">Concorrente ativo</span></option>
+                  <option value="livre">✍️ <span data-i18n="opt-livre">Livre (manual)</span></option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="entrada" class="form-label" id="label-entrada">Descreva o que deseja validar</label>
+                <textarea id="entrada" name="entrada" rows="4" class="form-control"
+                  placeholder="" ></textarea>
+                <div class="form-text" id="hint-entrada"></div>
+              </div>
+
+              <div class="mb-3">
+                <label for="urls" class="form-label" id="label-urls">Lista de URLs (opcional)</label>
+                <textarea id="urls" name="urls" rows="3" class="form-control small-mono"
+                  placeholder="" ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="csv_urls" class="form-label" id="label-csv">Upload CSV de URLs (opcional)</label>
+                <input type="file" class="form-control" id="csv_urls" name="csv_urls" accept=".csv">
+                <div class="form-text" id="hint-csv"></div>
+              </div>
+
+              <div class="mb-3">
+                <label for="auto_search" class="form-label" id="label-auto">🔎 Busca automática (global)</label>
+                <input type="text" id="auto_search" name="auto_search" class="form-control" placeholder="">
+                <div class="form-text" id="hint-auto"></div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-brand" id="btn-validar">
+                  <span class="spinner-border spinner-border-sm me-2 spinner" id="spinner"></span>
+                  <span id="btn-text">Validar</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="col-12 col-lg-7">
+        <div class="card shadow-soft">
+          <div class="card-body">
+            <h5 class="card-title" id="result-title">Resultado</h5>
+
+            {% if linhas %}
+              <div class="table-responsive">
+                <table class="table table-sm align-middle">
+                  <thead>
+                    <tr>
+                      <th id="th-url">URL</th>
+                      <th id="th-found">Encontrado</th>
+                      <th id="th-evidence">Evidência</th>
+                      <th id="th-notes">Observações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for r in linhas %}
+                      <tr>
+                        <td class="small-mono">{{ r.url }}</td>
+                        <td>{{ r.encontrado }}</td>
+                        <td>{{ r.evidencia }}</td>
+                        <td>{{ r.obs }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% elif resultado %}
+              <pre id="resultado">{{ resultado }}</pre>
+            {% else %}
+              <p class="text-muted" id="result-placeholder">O resultado aparecerá aqui depois que você enviar a solicitação.</p>
+            {% endif %}
+          </div>
+        </div>
+        <p class="text-center text-muted small mt-3 mb-0" id="footer">
+          Protótipo (MVP) — demonstração global. © LeadHunterAI
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Dicionário de traduções
+    const T = {
+      pt: {
+        csv: "⬇️ CSV",
+        formTitle: "Nova Validação",
+        tipo: "Tipo de validação",
+        opt: {
+          vagas: "Vagas abertas",
+          crescimento: "Empresa em crescimento",
+          produto: "Produto/Marca à venda",
+          concorrente: "Concorrente ativo",
+          livre: "Livre (manual)"
+        },
+        entrada: "Descreva o que deseja validar",
+        entradaPH: "Ex.: validar se empresas de software estão contratando; ou se a marca X é vendida em grandes marketplaces; ou sinais de crescimento de Y (investimentos, novas vagas, expansão).",
+        entradaHint: "Use termos globais (inglês/português/espanhol/francês) — a busca é mundial.",
+        urls: "Lista de URLs (opcional)",
+        urlsPH: "Uma URL por linha.",
+        csvLabel: "Upload CSV de URLs (opcional)",
+        csvHint: "CSV com uma coluna chamada url.",
+        auto: "🔎 Busca automática (global)",
+        autoPH: "Ex.: software companies hiring account executives; or 'porcelain dinnerware brand availability'",
+        autoHint: "Sem sites locais — usa fontes globais (LinkedIn Jobs, Greenhouse, Lever, Workable, Amazon, eBay, etc.).",
+        btn: "Validar",
+        result: "Resultado",
+        th: { url:"URL", found:"Encontrado", ev:"Evidência", notes:"Observações" },
+        placeholder: "O resultado aparecerá aqui depois que você enviar a solicitação.",
+        footer: "Protótipo (MVP) — demonstração global. © LeadHunterAI"
+      },
+      en: {
+        csv: "⬇️ CSV",
+        formTitle: "New Validation",
+        tipo: "Validation type",
+        opt: {
+          vagas: "Open roles",
+          crescimento: "Company growth",
+          produto: "Product/Brand on sale",
+          concorrente: "Active competitor",
+          livre: "Free (manual)"
+        },
+        entrada: "Describe what you want to validate",
+        entradaPH: "e.g., check if software companies are hiring; if brand X is sold in large marketplaces; or growth signals for Y (investments, new jobs, expansion).",
+        entradaHint: "Use global terms (English/Portuguese/Spanish/French) — the search is worldwide.",
+        urls: "List of URLs (optional)",
+        urlsPH: "One URL per line.",
+        csvLabel: "Upload URLs CSV (optional)",
+        csvHint: "CSV with a column named url.",
+        auto: "🔎 Automatic search (global)",
+        autoPH: "e.g., software companies hiring account executives; or 'porcelain dinnerware brand availability'",
+        autoHint: "No local sites — uses global sources (LinkedIn Jobs, Greenhouse, Lever, Workable, Amazon, eBay, etc.).",
+        btn: "Validate",
+        result: "Result",
+        th: { url:"URL", found:"Found", ev:"Evidence", notes:"Notes" },
+        placeholder: "The result will appear here after you submit.",
+        footer: "Prototype (MVP) — global demo. © LeadHunterAI"
+      },
+      es: {
+        csv: "⬇️ CSV",
+        formTitle: "Nueva Validación",
+        tipo: "Tipo de validación",
+        opt: {
+          vagas: "Puestos abiertos",
+          crescimento: "Crecimiento de la empresa",
+          produto: "Producto/Marca en venta",
+          concorrente: "Competidor activo",
+          livre: "Libre (manual)"
+        },
+        entrada: "Describe lo que deseas validar",
+        entradaPH: "Ej.: verificar si empresas de software están contratando; si la marca X se vende en grandes marketplaces; o señales de crecimiento de Y (inversiones, nuevas vacantes, expansión).",
+        entradaHint: "Usa términos globales (inglés/portugués/español/francés).",
+        urls: "Lista de URLs (opcional)",
+        urlsPH: "Una URL por línea.",
+        csvLabel: "Subir CSV de URLs (opcional)",
+        csvHint: "CSV con una columna llamada url.",
+        auto: "🔎 Búsqueda automática (global)",
+        autoPH: "Ej.: software companies hiring account executives; o 'porcelain dinnerware brand availability'",
+        autoHint: "Sin sitios locales — usa fuentes globales (LinkedIn Jobs, Greenhouse, Lever, Workable, Amazon, eBay, etc.).",
+        btn: "Validar",
+        result: "Resultado",
+        th: { url:"URL", found:"Encontrado", ev:"Evidencia", notes:"Observaciones" },
+        placeholder: "El resultado aparecerá aquí después de enviar.",
+        footer: "Prototipo (MVP) — demostración global. © LeadHunterAI"
+      },
+      fr: {
+        csv: "⬇️ CSV",
+        formTitle: "Nouvelle Validation",
+        tipo: "Type de validation",
+        opt: {
+          vagas: "Postes ouverts",
+          crescimento: "Croissance de l’entreprise",
+          produto: "Produit/Marque en vente",
+          concorrente: "Concurrent actif",
+          livre: "Libre (manuel)"
+        },
+        entrada: "Décrivez ce que vous souhaitez valider",
+        entradaPH: "Ex.: vérifier si des entreprises logicielles recrutent; si la marque X est vendue sur de grands marketplaces; ou des signaux de croissance pour Y (investissements, nouvelles offres, expansion).",
+        entradaHint: "Utilisez des termes globaux (anglais/portugais/espagnol/français).",
+        urls: "Liste d’URL (optionnel)",
+        urlsPH: "Une URL par ligne.",
+        csvLabel: "Téléverser un CSV d’URL (optionnel)",
+        csvHint: "CSV avec une colonne nommée url.",
+        auto: "🔎 Recherche automatique (globale)",
+        autoPH: "Ex.: software companies hiring account executives; ou 'porcelain dinnerware brand availability'",
+        autoHint: "Sans sites locaux — sources globales (LinkedIn Jobs, Greenhouse, Lever, Workable, Amazon, eBay, etc.).",
+        btn: "Valider",
+        result: "Résultat",
+        th: { url:"URL", found:"Trouvé", ev:"Preuve", notes:"Remarques" },
+        placeholder: "Le résultat s’affichera ici après l’envoi.",
+        footer: "Prototype (MVP) — démo globale. © LeadHunterAI"
+      }
+    };
+
+    // Elementos
+    const sel = document.getElementById('lang-select');
+    const hiddenLang = document.getElementById('lang-hidden');
+
+    function applyLang(lang){
+      hiddenLang.value = lang;
+      const t = T[lang]; if(!t) return;
+
+      // Navbar
+      document.getElementById('btn-csv').innerText = t.csv;
+
+      // Form
+      document.getElementById('title-form').innerText = t.formTitle;
+      document.getElementById('label-tipo').innerText = t.tipo;
+      document.querySelector('[data-i18n="opt-vagas"]').innerText = t.opt.vagas;
+      document.querySelector('[data-i18n="opt-crescimento"]').innerText = t.opt.crescimento;
+      document.querySelector('[data-i18n="opt-produto"]').innerText = t.opt.produto;
+      document.querySelector('[data-i18n="opt-concorrente"]').innerText = t.opt.concorrente;
+      document.querySelector('[data-i18n="opt-livre"]').innerText = t.opt.livre;
+
+      document.getElementById('label-entrada').innerText = t.entrada;
+      document.getElementById('entrada').placeholder = t.entradaPH;
+      document.getElementById('hint-entrada').innerText = t.entradaHint;
+
+      document.getElementById('label-urls').innerText = t.urls;
+      document.getElementById('urls').placeholder = t.urlsPH;
+
+      document.getElementById('label-csv').innerText = t.csvLabel;
+      document.getElementById('hint-csv').innerText = t.csvHint;
+
+      document.getElementById('label-auto').innerText = t.auto;
+      document.getElementById('auto_search').placeholder = t.autoPH;
+      document.getElementById('hint-auto').innerText = t.autoHint;
+
+      document.getElementById('btn-text').innerText = t.btn;
+
+      // Result
+      document.getElementById('result-title').innerText = t.result;
+      document.getElementById('th-url').innerText   = t.th.url;
+      document.getElementById('th-found').innerText = t.th.found;
+      document.getElementById('th-evidence').innerText = t.th.ev;
+      document.getElementById('th-notes').innerText = t.th.notes;
+      const ph = document.getElementById('result-placeholder');
+      if (ph) ph.innerText = t.placeholder;
+
+      document.getElementById('footer').innerText = t.footer;
+    }
+
+    sel.addEventListener('change', ()=> applyLang(sel.value));
+    // idioma inicial conforme o select
+    applyLang(sel.value);
+
+    // Loading state
+    document.getElementById('form-validacao').addEventListener('submit', () => {
+      document.getElementById('spinner').style.display = 'inline-block';
+      document.getElementById('btn-validar').setAttribute('disabled','true');
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
